@@ -141,18 +141,15 @@ const App = () => {
   );
   const statusOptions = useMemo(
     () =>
-      statuses.map((s) => {
-        // Suppress the "(Category)" suffix when it just duplicates the status
-        // name — otherwise "Done" renders as "Done  (Done)". Keep the suffix
-        // for custom statuses ("QA Review", "Blocked", …) where the category
-        // is genuinely informative.
-        const cat = (s.statusCategoryName || '').trim();
-        const showCat = cat && cat.toLowerCase() !== (s.name || '').trim().toLowerCase();
-        return {
-          label: showCat ? `${s.name}  (${cat})` : s.name,
-          value: s.id,
-        };
-      }),
+      // Show just the status name exactly as configured in Jira. Category
+      // (To Do / In Progress / Done) is metadata used for sorting the list
+      // — surfacing it in the label reads like a rendering bug to users,
+      // especially on custom statuses where the category rarely matches
+      // the intent (e.g. "QA Review" bucketed under "In Progress").
+      statuses.map((s) => ({
+        label: s.name,
+        value: s.id,
+      })),
     [statuses],
   );
   const selectedStatusOption = useMemo(
