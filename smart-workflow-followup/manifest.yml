@@ -1,0 +1,43 @@
+modules:
+  trigger:
+    - key: on-issue-updated
+      function: onIssueUpdated
+      events:
+        - avi:jira:updated:issue
+
+  jira:globalPage:
+    - key: swf-global-page
+      resource: globalPage
+      resolver:
+        function: resolver
+      render: native
+      title: Smart Workflow Follow-up
+      # No custom icon — Jira renders its default app icon in the sidebar.
+      # To use a custom icon, add `icon:` here pointing at either a public
+      # HTTPS URL or a file bundled as a `resources:` entry (e.g. `icon`).
+
+  function:
+    - key: resolver
+      handler: index.handler
+    - key: onIssueUpdated
+      handler: index.onIssueUpdated
+
+resources:
+  - key: globalPage
+    path: src/frontend/globalPage.jsx
+
+permissions:
+  scopes:
+    - read:jira-work
+    - read:jira-user
+    - read:project:jira
+    - write:jira-work
+    - storage:app
+
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  # id is populated by `forge register` — leave commented until then.
+  # id: ari:cloud:ecosystem::app/YOUR-APP-ID-HERE

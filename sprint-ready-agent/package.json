@@ -1,0 +1,17 @@
+{
+  "name": "sprint-ready-agent",
+  "version": "0.1.0",
+  "description": "Sprint Ready Agent — a Rovo agent that prepares a Jira issue for sprint planning: inspects context, proposes field values with reasoning, and applies only what the user confirms.",
+  "main": "src/index.js",
+  "scripts": {
+    "deploy": "forge deploy",
+    "lint": "eslint --ext .js src"
+  },
+  "dependencies": {
+    "@forge/api": "^8.0.4",
+    "@forge/resolver": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  }
+}
