@@ -34,8 +34,8 @@ forge install        # Jira only
 
 Then, in Jira:
 
-1. Open **Apps → Smart Workflow Follow-up** in the top nav — the app's only page.
-2. Pick a project, flip **Enable follow-ups for this project** on, and choose the trigger status.
+1. Open **Apps → Smart Workflow Follow-up** in the left nav — the app's only page.
+2. Pick a space, flip **Enable follow-ups for this space** on, and choose the trigger status.
 3. Write the comment. Click **+ Issue key**, **+ Person's name**, or **+ Issue summary** to insert variables. Watch the live preview.
 4. Save & enable. Every future issue that hits that status posts your comment within seconds — with a full audit feed below.
 
