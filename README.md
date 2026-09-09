@@ -24,7 +24,7 @@ Each demo is a self-contained Forge app. Pick one, `cd` into it, and follow the 
 Each folder contains its own `README.md` with the concept, install instructions,
 and an `AppRequirements.md` describing what the app does and why.
 
-## Try any demo (30 seconds)
+## Try any demo
 
 Once your Forge setup is complete (see [Start here](#start-here)), every demo follows the same shape:
 
