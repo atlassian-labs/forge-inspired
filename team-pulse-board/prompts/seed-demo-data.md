@@ -14,9 +14,9 @@ This prompt asks **Rovo Dev** to create them for you in about 60 seconds: a Conf
 **You will need**, on the target site:
 
 - Permission to create a Confluence space + page.
-- Permission to create Jira issues in at least one project.
+- Permission to create Jira issues in **at least one software-type project** (classic software project with To Do / In Progress / Done — not a service desk or business project).
 - The Team Pulse Board Forge app installed for **both** Confluence and Jira on the site.
-- Ideally, **2–3 other real users on the site** (colleagues, or shared demo users) so the demo can assign tickets to different people and show avatars in each card.
+- (Optional) **2–3 other real users assignable on the target site** if you want tickets assigned to different people so avatars show on each card. This is purely cosmetic — the demo works fine with everything unassigned, and on restored/cloned sites cross-site user resolution can be flaky, so Rovo defaults to skipping assignees unless you opt in.
 
 ---
 
@@ -47,14 +47,43 @@ STEP 2 — Create the demo Confluence page
 - The distinctive words in the title (Aurora, Nimbus, Assistant, Campaign)
   are what the macro will match on later.
 
-STEP 3 — Pick a Jira project
-- Search my Jira projects and pick one I can create issues in.
-  Prefer a project called "Marketing" if it exists; otherwise ask me
-  which one to use.
+STEP 3 — Pick a Jira project (software type only)
+- Search my Jira projects and ONLY consider projects of type `software`
+  (a classic team-managed or company-managed software project with a
+  simple To Do / In Progress / Done workflow). Do NOT pick service_desk
+  or business projects — their workflows and issue types don't match a
+  launch-campaign demo.
+- Prefer a software project whose name contains "Marketing" (e.g.
+  "Marketing Software Development"). If none exists, list the available
+  software projects and ask me which to use.
+- If the site has zero software projects, STOP and tell me — do not
+  fall back to a JSM or business project silently.
 
-STEP 4 — Find 5–7 real users on this site to assign tickets to
-- Use the Atlassian user search to find a handful of real users (not just
-  me). Show me their names + AAIDs and ask me to confirm the roster.
+STEP 4 — (OPTIONAL) Assignees
+- Assignees are cosmetic — the demo works whether tickets are assigned
+  or not, because the Team Pulse Board macro matches on shared
+  vocabulary in the summary/description, not on assignee.
+- Ask me: "Do you want to assign these tickets to real users, or skip
+  assignees entirely and create them unassigned?" Default to skipping
+  unless I say otherwise — it's the fastest path to a working demo.
+- If I opt in to assignees:
+  - CRITICAL: only use users assignable on the site I named at the start
+    of this session. Do NOT pull users from any other Atlassian site,
+    even if you have their AAIDs cached from earlier context.
+  - Use the project's assignable-users endpoint for the project you
+    picked in STEP 3 — e.g.
+    `GET /rest/api/3/user/assignable/search?project=<KEY>` — so every
+    AAID you return is guaranteed to resolve on this site.
+  - Do NOT use AAIDs harvested from `assignee` fields on existing
+    issues unless you have re-confirmed each one via the
+    assignable-users endpoint on the target site (issues can carry
+    stale assignees from restored/cloned sites, and those AAIDs will
+    silently fail at create time).
+  - Show me their display names + AAIDs and ask me to confirm the
+    roster.
+  - If the assignable-users endpoint returns fewer than 5 users, ask me
+    whether to proceed with fewer assignees or fall back to
+    unassigned — don't pad the list from other sources.
 
 STEP 5 — Create 7 Jira tickets in that project
 - Every ticket's summary MUST contain either "Aurora" or "Nimbus" (or both)
@@ -62,7 +91,9 @@ STEP 5 — Create 7 Jira tickets in that project
   Confluence page URL or mention its page ID.
 - Vary the statuses across the tickets: some in "To Do", some in
   "In Progress" (or your project's equivalent), some in "Done".
-- Assign each ticket to a different user from step 4.
+- If STEP 4 produced a roster, assign each ticket to a different user
+  from that roster. If STEP 4 was skipped, create every ticket
+  unassigned — that's fine.
 - Suggested titles (change to fit the project workflow):
     1. "Aurora — landing page copy final review"
     2. "Nimbus AI Assistant — beta signup form"
