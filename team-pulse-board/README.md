@@ -29,8 +29,11 @@ cd team-pulse-board
 npm install
 forge register       # first time only — writes an app.id into manifest.yml
 forge deploy
-forge install        # install for BOTH Confluence and Jira
+forge install        # install for BOTH Confluence and Jira on the same site
 ```
+
+**Why both products?** The macro renders in Confluence, but its resolver calls the Jira REST API to find related tickets. Jira only accepts those calls if the app is explicitly installed in Jira. To keep the Jira side invisible to regular users, the app uses a **`jira:adminPage`** — a surface that only appears under **Jira Settings → Apps** (admin-only), never in the top nav. The page itself explains why it's there.
+
 > **Need demo data?** Use [`prompts/seed-demo-data.md`](prompts/seed-demo-data.md) with Rovo Dev to seed a demo page + matching Jira tickets in about a minute.
 
 Then, on any Confluence page:
@@ -42,7 +45,10 @@ Then, on any Confluence page:
 
 ## Under the hood
 
-- **Modules:** [`confluence:macro`](https://developer.atlassian.com/platform/forge/manifest-reference/modules/confluence-macro/) + [`jira:globalPage`](https://developer.atlassian.com/platform/forge/manifest-reference/modules/jira-global-page/) + [`function`](https://developer.atlassian.com/platform/forge/manifest-reference/modules/function/).
+- **Modules:**
+  - [`confluence:macro`](https://developer.atlassian.com/platform/forge/manifest-reference/modules/confluence-macro/) — the whole user-facing surface.
+  - [`jira:adminPage`](https://developer.atlassian.com/platform/forge/manifest-reference/modules/jira-admin-page/) — the invisible-to-regular-users Jira surface that satisfies the platform's install requirement for REST calls (see [Why both products?](#get-it-running) above).
+  - [`function`](https://developer.atlassian.com/platform/forge/manifest-reference/modules/function/) — one resolver, wired to the macro.
 - **Scopes:** `read:jira-work`, `read:jira-user`, `read:confluence-user`, `read:confluence-content.summary`, `read:page:confluence`. All reads only.
 - **The interesting files:** `src/resolvers/page-context.js` (title-token extraction + JQL construction) and `src/frontend/index.jsx` (UI).
 

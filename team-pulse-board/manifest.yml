@@ -10,11 +10,19 @@ modules:
         distinctive words from the page title and running the JQL search for you —
         grouped by status. Match words are editable in the UI.
 
-  # Minimal Jira surface. The macro lives in Confluence, but the resolver calls
-  # Jira REST APIs — so the app must also be installed in Jira. Forge requires
-  # at least one Jira module for `forge install --product jira` to work; this
-  # global page satisfies that requirement without adding UI noise.
-  jira:globalPage:
+  # Why a Jira module exists at all in a "Confluence macro" app:
+  # -------------------------------------------------------------
+  # The macro's resolver calls the Jira REST API (`requestJira`). Jira
+  # rejects those calls with 403 "The app is not installed on this
+  # instance" unless the app is explicitly installed in Jira. To install
+  # in Jira, the manifest must declare at least one Jira module.
+  #
+  # We use `jira:adminPage` (not `jira:globalPage`) so the surface only
+  # appears under Jira Settings → Apps, visible only to Jira admins —
+  # not in every user's top navigation. The page itself is intentional:
+  # it explains to admins why the app is installed in Jira and points
+  # them back to Confluence, where the actual functionality lives.
+  jira:adminPage:
     - key: team-pulse-board-jira-about
       resource: jira-about-ui
       render: native

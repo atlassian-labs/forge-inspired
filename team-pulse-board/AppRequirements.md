@@ -108,15 +108,17 @@ Zero configuration. No admin page. No storage. Everything is derived from the cu
 - **Filter produced no matches** — a subtle line: `No tickets match "<filter>"`.
 - **Search failed** — an error `SectionMessage` with a **Try again** button.
 - **Loading** — a small spinner + `Searching Jira for tickets related to this page…`
-- **Not installed in Jira** — the search call returns 403 and the error state surfaces the message; the README calls this out under Quick start.
+- **App not installed in Jira** — the search call returns 403 `"The app is not installed on this instance"` and the error state surfaces the message. The install into Jira is required for the REST calls to work; see the Modules section for why.
 
 ### Modules
 
-- **`confluence:macro`** (`team-pulse-board-macro`) — the whole app.
-  - Resource: `src/frontend/index.jsx`.
-  - Resolver: `index.handler` (backed by `src/resolvers/page-context.js`).
-- **`jira:globalPage`** (`team-pulse-board-jira-about`) — minimal Jira surface required for Forge to install the app into Jira (the macro's REST calls need it). Resource: `src/frontend/jira-about.jsx`.
+- **`confluence:macro`** (`team-pulse-board-macro`) — the whole product surface. Resource: `src/frontend/index.jsx`. Resolver: `index.handler` (backed by `src/resolvers/page-context.js`).
+- **`jira:adminPage`** (`team-pulse-board-jira-about`) — an intentionally informational page under Jira Settings → Apps. Resource: `src/frontend/jira-about.jsx`.
 - **`function`** — one handler, `resolver`, wired via `src/index.js`.
+
+**Why a Jira module exists at all.** The macro's resolver calls the Jira REST API via `api.asUser().requestJira(...)`. Jira rejects that call with `403 "The app is not installed on this instance"` unless the app is explicitly installed in Jira. To install in Jira the manifest must declare at least one Jira module — so we declare one. `jira:adminPage` was chosen because it surfaces only under **Jira Settings → Apps** (admin-only), not in every user's top nav. The page itself is not a stub: it explains this exact rationale to any admin who lands on it and links them back to Confluence.
+
+An alternative pattern is declaring `compatibility: jira: required: false` so the app installs into Confluence alone — but that just moves the problem: `requestJira` calls still 403 on any site where the app hasn't been installed into Jira. The install requirement is the platform contract; we make it explicit rather than hide it.
 
 ### Scopes
 
@@ -132,7 +134,7 @@ Zero configuration. No admin page. No storage. Everything is derived from the cu
 
 - Forge CLI, logged in.
 - Node.js 22+.
-- A Confluence Cloud + Jira Cloud site the installer can admin (both, on the same tenant).
+- A Confluence Cloud + Jira Cloud site the installer can admin (both, on the same tenant). The app installs into both products — see the Modules section for why the Jira install is required even though the whole user-facing surface lives in Confluence.
 
 ## Related apps in the collection
 
