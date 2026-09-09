@@ -31,6 +31,7 @@ forge register       # first time only — writes an app.id into manifest.yml
 forge deploy
 forge install        # install for BOTH Confluence and Jira
 ```
+> **Need demo data?** Use [`prompts/seed-demo-data.md`](prompts/seed-demo-data.md) with Rovo Dev to seed a demo page + matching Jira tickets in about a minute.
 
 Then, on any Confluence page:
 
@@ -38,8 +39,6 @@ Then, on any Confluence page:
 2. The macro extracts distinctive words from the page title into a **Matching on** chip row.
 3. Related Jira tickets appear grouped by status (**To Do / In Progress / Done**) with linked keys, assignee avatars, and updated dates.
 4. Click **+ Add word** to widen the search live, or click ✕ on any chip to remove it.
-
-> **Need demo data?** Use [`prompts/seed-demo-data.md`](prompts/seed-demo-data.md) with Rovo Dev to seed a demo page + matching Jira tickets in about a minute.
 
 ## Under the hood
 
