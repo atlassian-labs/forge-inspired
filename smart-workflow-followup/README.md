@@ -1,6 +1,6 @@
 # Smart Workflow Follow-up — Forge Demo App
 
-[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](../LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](../CONTRIBUTING.md)
+[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](../LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](../CONTRIBUTING.md) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/atlassian-labs/forge-inspired?devcontainer_path=.devcontainer%2Fsmart-workflow-followup%2Fdevcontainer.json)
 
 > Part of the [**Forge Inspired**](../README.md) collection.
 
@@ -24,6 +24,8 @@
 
 > **Prerequisite:** your Forge setup is complete — see [Build and launch your Forge app → Choose your build path](https://developer.atlassian.com/platform/forge/build-and-launch/). New to the collection? [Start here](../README.md#start-here).
 
+**Zero-install option:** click the **Open in GitHub Codespaces** badge above. The container installs Node 24, the Forge CLI, and this demo's dependencies for you — skip straight to `forge login`.
+
 ```bash
 cd smart-workflow-followup
 npm install
@@ -35,7 +37,7 @@ forge install        # Jira only
 Then, in Jira:
 
 1. Open **Apps → Smart Workflow Follow-up** in the left nav — the app's only page.
-2. Pick a space, flip **Enable follow-ups for this space** on, and choose the trigger status.
+2. Pick a project, flip **Enable follow-ups for this project** on, and choose the trigger status.
 3. Write the comment. Click **+ Issue key**, **+ Person's name**, or **+ Issue summary** to insert variables. Watch the live preview.
 4. Save & enable. Every future issue that hits that status posts your comment within seconds — with a full audit feed below.
 

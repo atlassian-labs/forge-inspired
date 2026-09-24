@@ -1,0 +1,30 @@
+{
+  "name": "Forge Inspired (repo root)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "redhat.vscode-yaml",
+        "atlassian.atlascode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  // Repo-root container: install the Forge CLI, don't pick a demo for the user.
+  "postCreateCommand": "npm install -g @forge/cli",
+
+  "postAttachCommand": {
+    "welcome": "echo '' && echo '👋  Forge Inspired — Codespace ready.' && echo '' && echo 'This container has the Forge CLI installed at the repo root.' && echo 'For a per-demo experience, create a Codespace from one of the' && echo 'named .devcontainer configs (smart-workflow-followup,' && echo 'sprint-ready-agent, or team-pulse-board).' && echo '' && echo 'Or, from here:' && echo '  cd <demo-folder>' && echo '  npm install' && echo '  forge login && forge register && forge deploy && forge install' && echo ''"
+  },
+
+  "remoteUser": "node"
+}

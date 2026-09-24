@@ -1,3 +1,5 @@
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/atlassian-labs/forge-inspired?devcontainer_path=.devcontainer%2Fsprint-ready-agent%2Fdevcontainer.json)
+
 # Sprint Ready Agent — Forge Demo App
 
 [![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](../LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](../CONTRIBUTING.md)

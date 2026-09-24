@@ -1,9 +1,26 @@
 # Forge Inspired
 
-[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/atlassian-labs/forge-inspired)
 
 > A collection of small, open-source **Atlassian Forge reference apps** built for the
 > **Get Inspired** section of the Forge Developer Journey. Clone, install, and remix.
+
+## Try it in GitHub Codespaces (no local setup)
+
+Prefer not to install Node and the Forge CLI on your laptop? Every demo in this repo ships with a preconfigured **[GitHub Codespaces](https://github.com/features/codespaces)** dev container.
+
+1. Click **Code → Codespaces → New with options…** on the GitHub repo page.
+2. In **Dev container configuration**, pick the demo you want to work in (e.g. `smart-workflow-followup`).
+3. Wait ~1 minute. The container installs the Forge CLI, runs `npm install` for that demo, and drops you into a terminal.
+4. Run:
+   ```bash
+   forge login       # sign in with an Atlassian API token
+   forge register    # first time only — creates your own app id
+   forge deploy
+   forge install     # pick your Cloud site
+   ```
+
+Codespaces gives you a full VS Code-in-the-browser IDE with the demo code, Forge CLI, and the Atlassian VS Code extension pre-installed. See [`.devcontainer/`](.devcontainer/) for the configs.
 
 **These apps demonstrate the Atlassian platform in action.** Each one solves a real developer pain point with a working, cloneable Forge app that spans real Atlassian products — not marketing artefacts.
 

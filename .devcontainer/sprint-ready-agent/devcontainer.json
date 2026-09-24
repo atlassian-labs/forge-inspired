@@ -1,0 +1,31 @@
+{
+  "name": "Sprint Ready Agent (Forge)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+
+  "workspaceFolder": "/workspaces/forge-inspired/sprint-ready-agent",
+
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "redhat.vscode-yaml",
+        "atlassian.atlascode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "postCreateCommand": "npm install -g @forge/cli && cd /workspaces/forge-inspired/sprint-ready-agent && npm install",
+
+  "postAttachCommand": {
+    "welcome": "echo '' && echo '👋  Sprint Ready Agent — Forge Codespace ready.' && echo '' && echo 'Next steps:' && echo '  1. forge login          # sign in with an Atlassian API token' && echo '  2. forge register       # create your own app id (first time only)' && echo '  3. forge deploy' && echo '  4. forge install        # pick a Jira site' && echo ''"
+  },
+
+  "remoteUser": "node"
+}
