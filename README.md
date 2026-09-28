@@ -37,6 +37,7 @@ Each demo is a self-contained Forge app. Pick one, `cd` into it, and follow the 
 | [`sprint-ready-agent/`](sprint-ready-agent/) | AI native to the platform — one `rovo:agent` gives you Rovo Chat *and* the Jira ticket Agents panel. Reads freely, writes only after you confirm. | `rovo:agent`, `action` |
 | [`smart-workflow-followup/`](smart-workflow-followup/) | Reacting to real Jira events with a Forge `trigger` — no queues, no cron, no server. Per-project opt-in, editable templates, full audit trail. | `trigger`, `jira:globalPage` |
 | [`team-pulse-board/`](team-pulse-board/) | Cross-product in a single Forge app — a Confluence macro that runs a live Jira JQL search from words in the page title. Surfaces the ticket↔page connection nobody types. | `confluence:macro`, `jira:globalPage` |
+| [`implementation-plan-agent/`](implementation-plan-agent/) | Hands-on workshop — a Rovo agent that reads a Jira issue's context, drafts an implementation plan grounded in organizational knowledge, and posts it back as a single comment. Ships as **two apps**: a `baseline/` (untouched template) and a `solution/` (finished reference). | `rovo:agent`, `action` |
 
 Each folder contains its own `README.md` with the concept, install instructions,
 and an `AppRequirements.md` describing what the app does and why.

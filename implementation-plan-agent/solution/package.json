@@ -1,0 +1,19 @@
+{
+  "name": "implementation-plan-agent-solution",
+  "version": "0.1.0",
+  "description": "Solution — a Rovo agent that reads a Jira issue's context, drafts an implementation plan grounded in organizational knowledge, and posts it back as a single Jira comment.",
+  "main": "src/index.js",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "forge": "forge",
+    "deploy": "forge deploy",
+    "upgrade": "forge install --upgrade"
+  },
+  "dependencies": {
+    "@forge/api": "^8.0.4"
+  },
+  "devDependencies": {
+    "@forge/cli": "^14.1.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Implementation Plan Agent (Forge workshop)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-24-bookworm",
+
+  "workspaceFolder": "/workspaces/forge-inspired/implementation-plan-agent",
+
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "redhat.vscode-yaml",
+        "atlassian.atlascode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "postCreateCommand": "npm install -g @forge/cli && cd /workspaces/forge-inspired/implementation-plan-agent/baseline && npm install && cd /workspaces/forge-inspired/implementation-plan-agent/solution && npm install",
+
+  "postAttachCommand": {
+    "welcome": "echo '' && echo '👋  Implementation Plan Agent workshop — Forge Codespace ready.' && echo '' && echo 'Two apps live here:' && echo '  • baseline/  (workshop starting point)' && echo '  • solution/  (finished reference)' && echo '' && echo 'Next steps (pick a folder first):' && echo '  cd baseline           # or: cd solution' && echo '  1. forge login        # sign in with an Atlassian API token' && echo '  2. forge register     # create your own app id (first time only)' && echo '  3. forge deploy' && echo '  4. forge install      # pick a Jira site' && echo ''"
+  },
+
+  "remoteUser": "node"
+}

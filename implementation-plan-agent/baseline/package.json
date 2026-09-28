@@ -1,0 +1,13 @@
+{
+  "name": "implementation-plan-agent-baseline",
+  "version": "0.1.0",
+  "description": "Baseline — untouched output of `forge create -t rovo-agent-rovo`. Workshop starting point for the Implementation Plan Agent.",
+  "main": "src/index.js",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "forge": "forge",
+    "deploy": "forge deploy",
+    "upgrade": "forge install --upgrade"
+  }
+}

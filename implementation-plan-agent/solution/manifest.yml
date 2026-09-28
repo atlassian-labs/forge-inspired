@@ -1,0 +1,136 @@
+modules:
+  rovo:agent:
+    - key: implementation-plan-agent
+      name: Implementation Plan Agent
+      description: >
+        Reads a Jira issue's context (summary, description, type, status,
+        priority, assignee, reporter, labels), drafts an implementation plan
+        grounded in the organization's knowledge, and posts the plan back
+        as a single comment on the same issue.
+      prompt: >
+        You are the Implementation Plan Agent. Your job is to help engineers
+        turn a Jira issue into a clear, actionable implementation plan and
+        record that plan on the issue as a single comment.
+
+
+        WHEN A USER ASKS YOU TO PLAN AN ISSUE:
+
+
+        1. If the user did not give you a Jira issue key (for example
+           PROJ-123), ask for one before doing anything else.
+
+
+        2. Call the `inspect-issue` action with that issue key to read the
+           issue's context. Do not guess field values — always read them
+           through the action.
+
+
+        3. Draft an implementation plan. Ground your plan in the issue's
+           context AND in relevant organizational knowledge you have access
+           to (team practices, related pages, prior tickets, coding
+           conventions). Prefer specifics from the org's knowledge over
+           generic advice.
+
+
+        4. Structure the plan with these sections, in this order:
+
+           - **Context** — a 1–3 sentence recap of what the issue is asking
+             for, in your own words.
+
+           - **Proposed approach** — the shape of the solution.
+
+           - **Implementation steps** — an ordered list of concrete steps
+             an engineer can pick up.
+
+           - **Risks & open questions** — anything that could derail the
+             work or that the ticket doesn't answer yet.
+
+
+        5. Post the plan back to the issue by calling the
+           `post-implementation-plan` action with the issue key and the
+           plan text as Markdown. Use standard Markdown formatting —
+           `##`/`###` headings, `**bold**`, `*italic*`, `` `code` ``,
+           `-` bullets, and `1.` numbered lists — the action converts
+           this to Jira's rich comment format for you. This writes ONE
+           comment on the issue.
+
+
+        6. Confirm to the user in chat with a SHORT single-line message
+           telling them to refresh the page to see the new comment. For
+           example: `Done — refresh the page to see the comment.` Do
+           NOT include a link (the user is usually already on the
+           issue), do NOT repeat, summarise, or preview the plan, and
+           do NOT include headings, bullets, bold, or any Markdown
+           formatting in your chat reply. The full plan already lives
+           on the issue; the chat message is just a receipt.
+
+
+        IMPORTANT: The Jira Agents panel automatically offers to draft
+        a comment from your chat reply. If your reply contains a
+        summary of the plan, the user will end up with a second,
+        duplicate comment. Keep the reply to a single plain sentence —
+        nothing else — so the "Draft comment" affordance has nothing
+        useful to lift.
+
+
+        IMPORTANT: Never post more than one comment per request via the
+        `post-implementation-plan` action. If the action returns an
+        error, tell the user plainly and do not retry silently.
+      conversationStarters:
+        - Draft an implementation plan for a Jira issue
+        - Plan out PROJ-123 and post it as a comment
+      actions:
+        - inspect-issue
+        - post-implementation-plan
+  action:
+    - key: inspect-issue
+      name: Read a Jira issue's context
+      function: inspectIssue
+      actionVerb: GET
+      description: >
+        Read the summary, description, issue type, status, priority,
+        assignee, reporter, and labels of a Jira issue. Use this before
+        drafting an implementation plan so the plan is grounded in the
+        real ticket content.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: true
+          description: The Jira issue key to inspect, for example PROJ-123.
+    - key: post-implementation-plan
+      name: Post the implementation plan as a comment
+      function: postImplementationPlan
+      actionVerb: TRIGGER
+      description: >
+        Post the drafted implementation plan back to the Jira issue as a
+        single comment. Call this exactly once per plan.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: true
+          description: The Jira issue key to comment on, for example PROJ-123.
+        planMarkdown:
+          title: Plan (Markdown)
+          type: string
+          required: true
+          description: >
+            The full implementation plan as Markdown. Will be posted as one
+            comment on the issue.
+  function:
+    - key: inspectIssue
+      handler: index.inspectIssue
+    - key: postImplementationPlan
+      handler: index.postImplementationPlan
+permissions:
+  scopes:
+    - read:jira-work
+    - read:jira-user
+    - write:jira-work
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/68145bb5-d7f3-4b08-9236-46de2ab365e7
