@@ -55,11 +55,12 @@ You need three things before you can run either app:
   forge whoami
   ```
 
-### 3. A Jira Cloud site with Rovo
+### 3. A Jira Cloud site
 
-- Any Jira Cloud site you're an admin on will work. If you don't have one, create a free developer instance from https://developer.atlassian.com/platform/marketplace/getting-started/#developer-instances.
-- Rovo agents need Rovo enabled on the site. If your site is on a plan without Rovo, spin up a fresh dev site — new dev sites include Rovo by default.
-- See [**Build and launch your Forge app → Choose your build path**](https://developer.atlassian.com/platform/forge/build-and-launch/) for the full platform setup, including installing the Forge AI development toolkit.
+- Any Jira Cloud site you're an admin on will work. If you don't have one, create one by running:
+   ```bash
+  forge site provision
+  ```
 
 ### 4. (Optional) Skip local setup with GitHub Codespaces
 
