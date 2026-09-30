@@ -1,5 +1,3 @@
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/atlassian-labs/forge-inspired?devcontainer_path=.devcontainer%2Fimplementation-plan-agent%2Fdevcontainer.json)
-
 # Implementation Plan Agent — Forge Workshop
 
 [![Atlassian license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](../LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](../CONTRIBUTING.md)
@@ -62,9 +60,9 @@ You need three things before you can run either app:
   forge site provision
   ```
 
-### 4. (Optional) Skip local setup with GitHub Codespaces
+### 4. (Optional) Skip local setup with the Forge Codespace
 
-Every app in this collection ships with a preconfigured [Codespaces](https://github.com/features/codespaces) dev container that installs Node, the Forge CLI, and runs `npm install` for you. Use the badge at the top of this README to open the workshop straight in a browser IDE.
+Prefer not to install Node and the Forge CLI on your laptop? Use the community **[Forge Codespace](https://github.com/ccurti-dx/forge-codespace/tree/main)** — a preconfigured GitHub Codespace with Node and the Forge CLI already set up. Once you're in the Codespace, `git clone` this repo and `cd` into `implementation-plan-agent/baseline` (or `solution`) to deploy.
 
 ## The workshop flow
 
